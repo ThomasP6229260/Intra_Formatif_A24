@@ -39,6 +39,10 @@ export class AppComponent {
   selectChoice(selectedChoice:number) {
     this.selectedChoice = selectedChoice;
   }
+  updateNbUsers() {
+    
+    
+  }
 
   unselectChoice() {
     this.selectedChoice = -1;
