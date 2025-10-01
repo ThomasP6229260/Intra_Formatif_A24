@@ -51,9 +51,15 @@ export class AppComponent {
 
   selectChoice(selectedChoice:number) {
     this.selectedChoice = selectedChoice;
+
+    this.hubConnection!.invoke('selectChoice', this.selectedChoice);
+
+    this.hubConnection!.on('price', (data) => {
+      this.pizzaPrice = data;
+    });
   }
   updateNbUsers() {
-     this.hubConnection!.invoke('UpdateNbUsers');
+    // this.hubConnection!.invoke('OnConnectedAsync');
     
      this.hubConnection!.on('UpdateNbUsers', (data) => {
       this.nbUsers = data;
@@ -65,8 +71,28 @@ export class AppComponent {
   }
 
   addMoney() {
+ this.hubConnection!.invoke('addMoney', this.selectedChoice);
+
+  this.hubConnection!.on('addMoney', (data) => {
+      this.money = data;
+    });
+
   }
 
   buyPizza() {
+     
+ this.hubConnection!.invoke('BuyPizza', this.selectedChoice);
+
+  this.hubConnection!.on('BuyPizza', (data) => {
+      this.nbPizzas = data;
+
+    });
+
+    this.hubConnection!.on('moneyLeft', (data) => {
+      this.money = data;
+
+    });
+
+  
   }
 }
